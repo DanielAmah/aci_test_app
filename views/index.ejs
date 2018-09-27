@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ACI API App</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--===============================================================================================-->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+
+  <div class="container-contact100">
+    <span class="contact100-title">
+      ACI Worldwide App
+    </span>
+    <div class="wrap-contact100">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item process-payments"><a class="active nav-link" href="#Section1" role="tab" data-toggle="tab">Process Checkout</a></li>
+        <li class="nav-item"><a class="nav-link" href="#Section2" role="tab" data-toggle="tab">Make Payment</a></li>
+        <li class="nav-item payment-details"><a class="nav-link" href="#Section3" role="tab" id="payment" data-toggle="tab">Get Payment Details</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active show" id="Section1">
+          <form method="post" action="/" class="contact100-form validate-form" id="aci-checkout">
+            <span class="contact100-form-title">
+              Process Checkout
+            </span>
+            <label class="label-input100" for="message">Payment details *</label>
+            <div class="wrap-input100 rs1 validate-input">
+              <input id="amount" class="input100" type="text" name="amount" placeholder="Enter Amount">
+              <span class="focus-input100"></span>
+            </div>
+            <div class="form-group wrap-input100 rs1 validate-input custom-form">
+              <select class="form-control custom-select" id="select-currency" name="currency">
+                <option disabled selected>Select Currency</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+              </select>
+            </div>
+
+            <label class="label-input100" for="message">API Response</label>
+            <div class="wrap-input100">
+              <% if(paymentDetails !== null) { %>
+                <textarea id="message" class="input100" name="message" placeholder="Response"><%= paymentDetails %></textarea>
+
+                  <span class="focus-input100"></span>
+              <% } %>
+            </div>
+
+            <div class="container-contact100-form-btn">
+              <button class="contact100-form-btn">
+                <span>
+                  Process Checkout
+                  <i class="zmdi zmdi-arrow-right m-l-8"></i>
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Section2">
+            <span class="contact100-form-title">
+                Make Payment
+              </span>
+            <script>
+                var wpwlOptions = {
+                    style: "plain"
+                }
+            </script>
+            <script async src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=<%=checkout%>"></script>
+            <form action="https://aci-api.herokuapp.com/" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="Section3">
+          <form action="/payments?checkoutId=<%=checkout%>" method="get" class="contact100-form validate-form" id="payment-details">
+            <span class="contact100-form-title">
+                Get Payment Details
+              </span>
+            <div class="container-contact100-form-btn">
+                <button class="contact100-form-btn">
+                  <span>
+                    Get Payment Details
+                    <i class="zmdi zmdi-arrow-right m-l-8"></i>
+                  </span>
+                </button>
+                <label class="label-input100" for="message">API Response</label>
+                <div class="wrap-input100">
+                    <% if(paidDetails !== null) { %>
+                    <textarea class="input100" name="message" placeholder="Response"><%= paidDetails %></textarea>
+
+                      <span class="focus-input100"></span>
+                      <% } %>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <!--===============================================================================================-->
+  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/bootstrap/js/popper.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/daterangepicker/moment.min.js"></script>
+  <script src="vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/countdowntime/countdowntime.js"></script>
+  <!--===============================================================================================-->
+  <script src="js/main.js"></script>
+  <script>
+    /* attach a submit handler to the form */
+    $("#aci-checkout").submit(function (event) {
+      /* stop form from submitting normally */
+      event.preventDefault();
+      /* get the action attribute from the <form action=""> element */
+      const $form = $( this ),
+      url = $form.attr('action');
+      const amount = $('#amount').val();
+      const currency = $('#select-currency').val();
+        const posting = $.post( url, { amount: amount, currency: currency } );
+        posting.done(function(response){
+          $('body').html(response);
+        })
+    });
+  </script>
+  <script>
+    $("#payment-details").submit(function (event) {
+      event.preventDefault();
+      const $form = $( this ),
+      url = $form.attr('action');
+      const getting = $.get(url, { contentType: "application/json; charset=utf-8"});
+      getting.done(function(response){
+        $('body').html(response);
+        $('#payment').tab('show');
+      })
+
+    })
+  </script>
+</body>
+</html>
